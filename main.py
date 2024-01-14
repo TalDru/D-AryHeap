@@ -1,16 +1,45 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+"""
+D-ary Heap implementation.
+@author: Tal Druzhinin & Shelly Goltzman
+"""
 
 
-# Press the green button in the gutter to run the script.
+class DAryHeap:
+    def __init__(self, nodes, heap_size):
+        self.nodes = nodes or []
+        self.heap_size = heap_size
+        self.length = len(self.nodes)
+
+    def __swap(self, i, j):
+        self.nodes[i], self.nodes[j] = self.nodes[j], self.nodes[i]
+
+    def __max_heapify(self):
+        # NOT IN THE EXERCISE SCOPE
+        self.nodes.sort()
+
+    def extract_max(self):
+        self.__max_heapify()
+        # Now max is at nodes[0]
+        self.__swap(0, self.heap_size - 1)
+        # Now max is at nodes[length]
+        self.heap_size = self.heap_size - 1
+        self.__max_heapify()  # Fix Heap
+        return self.nodes[len(self.nodes)]
+
+    def insert(self):
+        pass
+
+    def increase_key(self, i, k):
+        # self[i] = k if self[i] < k else self[i]
+        pass
+
+    def delete(self, i):
+        pass
+
+
+def main():
+    pass
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()
