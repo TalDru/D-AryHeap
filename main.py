@@ -28,7 +28,7 @@ def insert(heap: DHeap):
     @return: Inserted node index.
     """
 
-    pass  # TODO Tal
+    pass  # TODO Shelly
 
 
 def increase_key(heap: DHeap, i: int, k: int):
@@ -39,9 +39,17 @@ def increase_key(heap: DHeap, i: int, k: int):
     @param i: Requested index to update.
     @param k: Value to compare to.
     """
-    # heap[i] = k if heap[i] < k else heap[i]
-    # max_heapify(heap)
-    pass  # TODO Shelly
+    if heap[i] >= k:
+        return
+    else:
+        heap[i] = k
+        while i > 0:
+            parent_index = heap.get_parent_index(i)
+            if heap[i] > heap[parent_index]:
+                heap.swap(i, parent_index)
+                i = parent_index
+            else:
+                break
 
 
 def pop(heap: DHeap, index_to_remove: int):
@@ -82,6 +90,13 @@ def main():
     popped_index = 1
     popped_node = pop(example_heap, popped_index)
     print(example_heap, "\tPopped node #{}: {}".format(popped_index, popped_node))
+    example_heap.print_as_tree()
+
+    print("After increase: ")
+    increased_index = example_heap.heap_size - 1
+    increased_value = 16
+    increase_key(example_heap, increased_index, increased_value)
+    print(example_heap, "\tIncreased node #{} to {}:".format(increased_index, increased_value))
     example_heap.print_as_tree()
 
 
