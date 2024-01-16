@@ -52,7 +52,7 @@ class DHeap(list):
         """
         self[i], self[j] = self[j], self[i]
 
-    def parent(self, root_index):
+    def get_parent_index(self, root_index):
         """
         Calculate the theoretical index of the parent of a given index.
         @note: This is a mathematical calculation that does not validate the heap boundaries.
@@ -83,6 +83,14 @@ class DHeap(list):
         @return: A list of all potential child indexes of the given root index.
         """
         return [self.nth_child_index(root_index, n) for n in range(1, self.d + 1)]
+
+    def get_first_leaf_index(self):
+        """
+        Calculate the index of the first childless node ("leaf") of the heap.
+
+        @return: The index of the first leaf in the heap.
+        """
+        return int(math.floor(self.heap_size + 1 / self.d))
 
     # Visualizations
 
@@ -123,11 +131,13 @@ class DHeap(list):
         max_width = max_leafs * 4 + (max_leafs + 1)
 
         width = max_width // 2
-        for level_nodes in result:
+        for level in range(0, len(result)):
+            level_nodes = result[level]
             for j in range(len(level_nodes)):
                 node = '{0: ^4}'.format(level_nodes[j])
                 data = '{node: ^{width}}'.format(node=node, width=width)
-                if ((j + 1) % self.d == 0 or len(level_nodes) <= self.d) and j + 1 != len(level_nodes):
+                if ((j + 1) % self.d == 0 or (len(level_nodes) <= self.d and level < len(result) - 1)) and j + 1 != len(
+                        level_nodes):
                     print(data, end="||")
                 else:
                     print(data, end="")

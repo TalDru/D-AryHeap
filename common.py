@@ -11,6 +11,11 @@ from dheap import DHeap
 class GeneralAlgorithms:
 
     @classmethod
+    def build_max_heap(cls, heap: DHeap):
+        for i in reversed(range(0, heap.get_first_leaf_index())):
+            cls.max_heapify(heap, i)
+
+    @classmethod
     def max_heapify(cls, heap: DHeap, root_index: int):
         """
         Heapify given heap from given root index downwards into a Maximum heap.

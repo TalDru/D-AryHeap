@@ -28,7 +28,7 @@ def insert(heap: DHeap):
     @param heap: D-ary heap object.
     @return: Inserted node index.
     """
-    
+
     pass  # TODO Tal
 
 
@@ -63,27 +63,27 @@ def pop(heap: DHeap, index_to_remove: int):
 
 
 def main():
-    example_heap = DHeap([3, 9, 2, 1, 4, 5, 7, 6, 10, 12, 11], 3)
+    example_array = [3, 9, 2, 11, 14, 5, 7, 15, 6, 10, 20, 12, 1, 17, 4, 13, 16]
+    example_heap_level_size = 3
+    example_heap = DHeap(items=example_array, d=example_heap_level_size)
     print("Height: ", example_heap.height)
 
-    print("Before: ")
+    print("Before max_heapify: ")
     print(example_heap)
     example_heap.print_as_tree()
 
-    for i in reversed(range(0, len(example_heap))):
-        GeneralAlgorithms.max_heapify(example_heap, i)
-
-    print("After: ")
+    GeneralAlgorithms.build_max_heap(example_heap)
+    print("After max_heapify: ")
     print(example_heap)
     example_heap.print_as_tree()
 
     print("After extract_max: ")
     max_node = extract_max(example_heap)
-    print(example_heap, "\tMax node:", max_node)
+    print(example_heap, "\tMax node value:", max_node)
     example_heap.print_as_tree()
 
     print("After pop: ")
-    popped_index = 2
+    popped_index = 1
     popped_node = pop(example_heap, popped_index)
     print(example_heap, "\tPopped node #{}: {}".format(popped_index, popped_node))
     example_heap.print_as_tree()
