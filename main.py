@@ -13,11 +13,10 @@ def extract_max(heap: DHeap):
     @param heap: D-ary heap object.
     @return: Value of the extracted (largest) node.
     """
-    heap.swap(0, heap.heap_size - 1)
-    # Now max is at heap[heap.heap_size - 1]
-    popped_node = heap[heap.heap_size - 1]
-    heap.heap_size = heap.heap_size - 1
-    GeneralAlgorithms.max_heapify(heap, 0)  # Fix Heap
+    max_index = 0  # Assuming heap is a max heap
+    heap.swap(max_index, heap.heap_size - 1)  # Now max node is at heap[heap.heap_size - 1]
+    popped_node = heap.pop_last()
+    GeneralAlgorithms.max_heapify(heap, 0)  # Fix Heap from root
     return popped_node
 
 
@@ -53,12 +52,9 @@ def pop(heap: DHeap, index_to_remove: int):
     @param index_to_remove: Requested index to pop out of the heap.
     @return: Removed node value.
     """
-    heap.swap(index_to_remove, heap.heap_size - 1)
-    # Now max is at heap[heap.heap_size - 1]
-    popped_node = heap[heap.heap_size - 1]
-    heap.heap_size = heap.heap_size - 1
-    for i in reversed(range(0, heap.heap_size)):
-        GeneralAlgorithms.max_heapify(heap, i)  # Fix Heap
+    heap.swap(index_to_remove, heap.heap_size - 1)  # Now the node to extract is at heap[heap.heap_size - 1]
+    popped_node = heap.pop_last()
+    GeneralAlgorithms.build_max_heap(heap)  # Fix Heap
     return popped_node
 
 

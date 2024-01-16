@@ -52,6 +52,14 @@ class DHeap(list):
         """
         self[i], self[j] = self[j], self[i]
 
+    def pop_last(self):
+        last_index = self.heap_size - 1
+        popped_node = self[last_index]
+        self.heap_size -= 1
+        return popped_node
+
+    # Class calculations
+
     def get_parent_index(self, root_index):
         """
         Calculate the theoretical index of the parent of a given index.
