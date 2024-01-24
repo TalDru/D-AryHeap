@@ -20,15 +20,24 @@ def extract_max(heap: DHeap):
     return popped_node
 
 
-def insert(heap: DHeap):
+def insert(heap: DHeap, value: int) -> int:
     """
     Insert requested value into heap (assuming heap is a Maximum heap), fix the heap and return the inserted node index.
 
     @param heap: D-ary heap object.
+    @param value: value to insert into the heap.
     @return: Inserted node index.
     """
+    heap.append(value)  # Add value to the end of the list and increase heap_size
+    GeneralAlgorithms.build_max_heap(heap)  # Fix Heap from root
 
-    pass  # TODO Shelly
+    # Find index of inserted value and return it
+    index = 0
+    while index < heap.heap_size:
+        if heap[index] == value:
+            return index
+
+        index += 1
 
 
 def increase_key(heap: DHeap, i: int, k: int):
@@ -97,6 +106,12 @@ def main():
     increased_value = 16
     increase_key(example_heap, increased_index, increased_value)
     print(example_heap, "\tIncreased node #{} to {}:".format(increased_index, increased_value))
+    example_heap.print_as_tree()
+
+    print("After insert: ")
+    inserted_value = 8
+    inserted_index = insert(example_heap, inserted_value)
+    print(example_heap, "\tInserted node at index {}: {}".format(inserted_index, inserted_value))
     example_heap.print_as_tree()
 
 
