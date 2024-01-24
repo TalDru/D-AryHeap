@@ -119,11 +119,28 @@ if __name__ == '__main__':
     main()
 
 # TODO S - User interface -
-#           * get D from user
+#           * get D from user (single d for each run)
 #           * get heap input from file
-#           * allow user to apply all implemented functions
+#           * allow user to apply all implemented functions or exit, i.e:
+#               *  print current state of heap
+#               *  ask user which function he would like to run (or exit)
+#               *  get function input
+#               *  print function output (if any)
+#               *  GOTO 1
+#           * NOTE: the user can ask to build a new heap from file in the middle of the run
 # TODO S+T - implement all public functions
 # TODO S+T - write down a pseudocode algorythm for each function (including private)
 # TODO S+T - analyze runtime complexity of each public function
-# TODO S - make printing work better with larger trees
-# TODO S - optional - make printing prettier
+# TODO S - implement "simple print" (layer 0 - ..., layer 1 - ..., etc) for larger trees
+# TODO S - optional - make printing work better with larger trees
+
+# TODO new-
+#  * Check input and throw exceptions on invalid input
+#       * Input can be only ints (up to 5k values),
+#           positive or *negative*, and can be expected
+#           to be between -99999 and 99999
+#  * Add "Testing" module - i.e. something that gets different inputs and
+#       checks if expected output was calculated for each public function
+#       also - we have to check for edge cases and raise exceptions in case of an error
+#  * Add documentation of the algorithm's basic workflow for each implementation
+
