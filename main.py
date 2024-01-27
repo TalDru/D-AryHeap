@@ -40,28 +40,28 @@ def insert(heap: DHeap, value: int) -> int:
         index += 1
 
 
-def increase_key(heap: DHeap, i: int, k: int):
+def increase_key(heap: DHeap, index_to_increase: int, new_value: int):
     """
     Update the value in index i to k if it's larger than the current value, fix the heap and return the extracted value.
 
     @param heap: D-ary heap object.
-    @param i: Requested index to update.
-    @param k: Value to compare to.
+    @param index_to_increase: Requested index to update.
+    @param new_value: Value to compare to.
     """
-    if heap[i] >= k:
+    if heap[index_to_increase] >= new_value:
         return
     else:
-        heap[i] = k
-        while i > 0:
-            parent_index = heap.get_parent_index(i)
-            if heap[i] > heap[parent_index]:
-                heap.swap(i, parent_index)
-                i = parent_index
+        heap[index_to_increase] = new_value
+        while index_to_increase > 0:
+            parent_index = heap.get_parent_index(index_to_increase)
+            if heap[index_to_increase] > heap[parent_index]:
+                heap.swap(index_to_increase, parent_index)
+                index_to_increase = parent_index
             else:
                 break
 
 
-def pop(heap: DHeap, index_to_remove: int):
+def extract(heap: DHeap, index_to_remove: int):
     """
     Extract requested node from heap (assuming heap is a Maximum heap), fix the heap and return the extracted value.
 
@@ -97,7 +97,7 @@ def main():
 
     print("After pop: ")
     popped_index = 1
-    popped_node = pop(example_heap, popped_index)
+    popped_node = extract(example_heap, popped_index)
     print(example_heap, "\tPopped node #{}: {}".format(popped_index, popped_node))
     example_heap.print_as_tree()
 
@@ -143,4 +143,3 @@ if __name__ == '__main__':
 #       checks if expected output was calculated for each public function
 #       also - we have to check for edge cases and raise exceptions in case of an error
 #  * Add documentation of the algorithm's basic workflow for each implementation
-
