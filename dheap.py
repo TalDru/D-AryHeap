@@ -26,9 +26,10 @@ class DHeap(list):
 
         self.heap_size = 0
         for item in items:
+            self.heap_size += 1
             self.append(item)
 
-        self.length = self.heap_size
+        self.array_length = self.heap_size
 
         self.d = d
 
@@ -37,7 +38,7 @@ class DHeap(list):
 
     def append(self, value):
         list.append(self, value)
-        self.heap_size += 1
+        # self.heap_size += 1  # TODO buggy
 
     def __setitem__(self, key, value):
         list.__setitem__(self, key, value)

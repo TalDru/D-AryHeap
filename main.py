@@ -14,7 +14,10 @@ def extract_max(heap: DHeap):
     @return: Value of the extracted (largest) node.
     """
     if heap.heap_size < 1:
-        return
+        raise Exception("Heap underflow.")
+    if heap.heap_size == 1:
+        # The only node is the root
+        return heap.pop_last()
     max_index = 0  # Assuming heap is a max heap
     heap.swap(max_index, heap.heap_size - 1)  # Now max node is at heap[heap.heap_size - 1]
     popped_node = heap.pop_last()
@@ -51,8 +54,10 @@ def increase_key(heap: DHeap, index_to_increase: int, new_value: int):
     @param index_to_increase: Requested index to update.
     @param new_value: Value to compare to.
     """
-    if heap.heap_size < index_to_increase or index_to_increase < 0:
-        raise Exception("Invalid index given.")
+    if heap.heap_size < index_to_increase:
+        raise Exception("Heap overflow.")
+    if index_to_increase < 0:
+        raise Exception("Heap underflow.")
     if heap[index_to_increase] >= new_value:
         return
     else:
@@ -71,22 +76,23 @@ def extract(heap: DHeap, index_to_remove: int):
     Extract requested node from heap (assuming heap is a Maximum heap), fix the heap and return the extracted value.
 
     @param heap: D-ary heap object.
-    @param i: Requested index to extract from the heap.
+    @param index_to_remove: Requested index to extract from the heap.
     @return: Removed node value.
     """
-    if heap.heap_size < i or i < 0:
-        raise Exception("Invalid index given.")
-    if heap.heap_size < 1:
-        raise Exception("Cannot pop from empty heap.")
-    heap.swap(i, heap.heap_size - 1)  # Now the node to extract is at heap[heap.heap_size - 1]
+    if heap.heap_size < index_to_remove:
+        raise Exception("Heap overflow.")
+    if index_to_remove < 0 or heap.heap_size < 1:
+        raise Exception("Heap underflow.")
+    heap.swap(index_to_remove, heap.heap_size - 1)  # Now the node to extract is at heap[heap.heap_size - 1]
     popped_node = heap.pop_last()
-    GeneralAlgorithms.build_max_heap(heap)  # Fix Heap
+    # GeneralAlgorithms.build_max_heap(heap)  # Fix Heap
+    GeneralAlgorithms.max_heapify(heap, index_to_remove)  # Fix Heap
     return popped_node
 
 
 def main():
-    # example_array = [3, 9, 2, 11, 14, 5, 7, 15, 6, 10, 20, 12, 1, 17, 4, 13, 16]
-    example_array = [3]
+    example_array = [3, 9, 2, 11, 14, 5, 7, 15, 6, 10, 20, 12, 1, 17, 4, 13, 16]
+    # example_array = [3]
     example_heap_level_size = 2
     example_heap = DHeap(items=example_array, d=example_heap_level_size)
     print("Height: ", example_heap.height)
