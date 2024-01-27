@@ -13,6 +13,8 @@ def extract_max(heap: DHeap):
     @param heap: D-ary heap object.
     @return: Value of the extracted (largest) node.
     """
+    if heap.heap_size < 1:
+        return
     max_index = 0  # Assuming heap is a max heap
     heap.swap(max_index, heap.heap_size - 1)  # Now max node is at heap[heap.heap_size - 1]
     popped_node = heap.pop_last()
@@ -28,6 +30,7 @@ def insert(heap: DHeap, value: int) -> int:
     @param value: value to insert into the heap.
     @return: Inserted node index.
     """
+    # TODO fix: if we pop something beforehand - appending would insert it after popped values
     heap.append(value)  # Add value to the end of the list and increase heap_size
     GeneralAlgorithms.build_max_heap(heap)  # Fix Heap from root
 
@@ -48,6 +51,8 @@ def increase_key(heap: DHeap, index_to_increase: int, new_value: int):
     @param index_to_increase: Requested index to update.
     @param new_value: Value to compare to.
     """
+    if heap.heap_size < index_to_increase or index_to_increase < 0:
+        raise Exception("Invalid index given.")
     if heap[index_to_increase] >= new_value:
         return
     else:
@@ -66,18 +71,23 @@ def extract(heap: DHeap, index_to_remove: int):
     Extract requested node from heap (assuming heap is a Maximum heap), fix the heap and return the extracted value.
 
     @param heap: D-ary heap object.
-    @param index_to_remove: Requested index to pop out of the heap.
+    @param i: Requested index to extract from the heap.
     @return: Removed node value.
     """
-    heap.swap(index_to_remove, heap.heap_size - 1)  # Now the node to extract is at heap[heap.heap_size - 1]
+    if heap.heap_size < i or i < 0:
+        raise Exception("Invalid index given.")
+    if heap.heap_size < 1:
+        raise Exception("Cannot pop from empty heap.")
+    heap.swap(i, heap.heap_size - 1)  # Now the node to extract is at heap[heap.heap_size - 1]
     popped_node = heap.pop_last()
     GeneralAlgorithms.build_max_heap(heap)  # Fix Heap
     return popped_node
 
 
 def main():
-    example_array = [3, 9, 2, 11, 14, 5, 7, 15, 6, 10, 20, 12, 1, 17, 4, 13, 16]
-    example_heap_level_size = 3
+    # example_array = [3, 9, 2, 11, 14, 5, 7, 15, 6, 10, 20, 12, 1, 17, 4, 13, 16]
+    example_array = [3]
+    example_heap_level_size = 2
     example_heap = DHeap(items=example_array, d=example_heap_level_size)
     print("Height: ", example_heap.height)
 
@@ -95,10 +105,22 @@ def main():
     print(example_heap, "\tMax node value:", max_node)
     example_heap.print_as_tree()
 
+    print("After insert: ")
+    inserted_value = 8  # ??????
+    inserted_index = insert(example_heap, inserted_value)
+    print(example_heap, "\tInserted node at index {}: {}".format(inserted_index, inserted_value))
+    example_heap.print_as_tree()
+
     print("After pop: ")
     popped_index = 1
     popped_node = extract(example_heap, popped_index)
     print(example_heap, "\tPopped node #{}: {}".format(popped_index, popped_node))
+    example_heap.print_as_tree()
+
+    print("After insert: ")
+    inserted_value = 8
+    inserted_index = insert(example_heap, inserted_value)
+    print(example_heap, "\tInserted node at index {}: {}".format(inserted_index, inserted_value))
     example_heap.print_as_tree()
 
     print("After increase: ")
@@ -106,12 +128,6 @@ def main():
     increased_value = 16
     increase_key(example_heap, increased_index, increased_value)
     print(example_heap, "\tIncreased node #{} to {}:".format(increased_index, increased_value))
-    example_heap.print_as_tree()
-
-    print("After insert: ")
-    inserted_value = 8
-    inserted_index = insert(example_heap, inserted_value)
-    print(example_heap, "\tInserted node at index {}: {}".format(inserted_index, inserted_value))
     example_heap.print_as_tree()
 
 

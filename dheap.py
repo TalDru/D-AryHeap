@@ -17,6 +17,13 @@ class DHeap(list):
     # Class definitions
     def __init__(self, items, d):
         super().__init__()
+
+        # Validate input
+        if d < 2:
+            raise Exception("Heap was initiated with a level size smaller than 2!")
+        if len(items) < 1:
+            raise Exception("Heap was initiated with an invalid list of values!")
+
         self.heap_size = 0
         for item in items:
             self.append(item)
@@ -39,7 +46,7 @@ class DHeap(list):
 
     @property
     def height(self):
-        return int(math.floor(math.log(self.heap_size, self.d))) + 1
+        return int(math.floor(math.log(self.heap_size, self.d))) + 1 if self.heap_size > 0 else 0
 
     # Class functionality
 
@@ -115,7 +122,7 @@ class DHeap(list):
         result = []
         current_level = [0]
 
-        while current_level:
+        while current_level and nodes:
             next_level = []
             level_nodes = []
 
@@ -135,6 +142,10 @@ class DHeap(list):
         """
         result = self.to_list()
 
+        if not result:
+            print("(Empty heap)\n")
+            return
+
         max_leafs = (self.d ** self.height)
         max_width = max_leafs * 4 + (max_leafs + 1)
 
@@ -152,3 +163,4 @@ class DHeap(list):
 
             width = math.ceil(width / self.d)
             print()
+        print()  # Buffer space
