@@ -3,6 +3,7 @@ from solution import extract_max, extract, insert, increase_key
 from common import GeneralAlgorithms
 
 DEFAULT_INPUT_FILE = 'input.txt'
+MAX_TREE_DISPLAY_ITEMS = 32
 
 
 def safe_input_int(prompt: str):
@@ -53,12 +54,12 @@ def get_file_name_from_user() -> str:
     return input(f"> Input path to file with heap list (default={DEFAULT_INPUT_FILE}): ") or DEFAULT_INPUT_FILE
 
 
-def get_heap_from_file(file_name: str, d: int) -> DHeap:
+def get_list_from_file(file_name: str) -> list:
     with open(file_name, 'r') as f:
         content = f.read()
 
-    heap_list = [int(num) for num in content.split(",")]
-    return DHeap(heap_list, d)
+    input_list = [int(num) for num in content.split(",")]
+    return input_list
 
 
 def print_menu():
@@ -80,11 +81,22 @@ def get_menu_option_from_user() -> str:
 def user_loop():
     d = get_d_from_user()
     filename = get_file_name_from_user()
-    heap = get_heap_from_file(filename, d)
+    print(f"Reading heap from path {filename}...")
+    input_list = get_list_from_file(filename)
+    print(f"Got list (size {len(input_list)}): {input_list}")
+    heap = DHeap(input_list, d)
+    print("Converting into Max Heap...")
     GeneralAlgorithms.build_max_heap(heap)
+    print("Heap is ready!\n--------------\n")
+
+    if len(input_list) > MAX_TREE_DISPLAY_ITEMS:
+        print("Heap is too big to print as a tree, Heap will be displayed as list.")
 
     while True:
-        heap.print_as_tree()
+        if heap.heap_size > MAX_TREE_DISPLAY_ITEMS:
+            heap.print_as_list()
+        else:
+            heap.print_as_tree()
         print_menu()
         menu_option = get_menu_option_from_user()
         if menu_option == EXIT_KEY:

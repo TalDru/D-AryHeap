@@ -139,6 +139,6 @@ def extract(heap: DHeap, index_to_remove: int) -> int:
 #        copy the entire console into the document
 #  * T - Add documentation of the algorithm's basic workflow for each implementation in the docstring
 #  * T - Add more robust commenting, as it was explained in the guide
-#  * T - implement "simple print" (layer 0 - ..., layer 1 - ..., etc) for larger trees
+#  * S+T - Go over inline TODOs
 #  * S - Validate pseudo code vs final code version
 #  * S - Reorganize all the functions to be "top down" dependency-wise, as it was explained in the guide

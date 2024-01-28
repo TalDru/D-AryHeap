@@ -8,6 +8,8 @@ The class also includes the visualization modules for printing the object.
 
 import math
 
+MAX_NODE_VALUE_LENGTH = 6
+
 
 class DHeap(list):
     """
@@ -30,20 +32,6 @@ class DHeap(list):
             self.append(item)
 
         self.d = d
-
-    def __len__(self):
-        return self.heap_size
-
-    @property
-    def array_length(self):
-        l = 0
-        for i in self:
-            l += 1
-        return l
-
-    def append(self, value):
-        list.append(self, value)
-        # self.heap_size += 1  # TODO buggy
 
     def __setitem__(self, key, value):
         list.__setitem__(self, key, value)
@@ -122,7 +110,7 @@ class DHeap(list):
         """
         Generate a nested list representing the nodes on each level of the heap.
 
-        @return: A list of lists, where each item i is the values of the nodes on level i.
+        @return: A list of lists, where the item in index k is a list of values of the nodes on level k.
         """
         nodes = self[:self.heap_size]
         result = []
@@ -153,14 +141,14 @@ class DHeap(list):
             return
 
         max_leafs = (self.d ** self.height)
-        max_width = max_leafs * 4 + (max_leafs + 1)
+        # The biggest possible bottom level including spaces
+        max_width = (max_leafs * (MAX_NODE_VALUE_LENGTH + 2)) + (max_leafs + 1)
 
         width = max_width // 2
         for level in range(0, len(result)):
             level_nodes = result[level]
             for j in range(len(level_nodes)):
-                node = '{0: ^4}'.format(level_nodes[j])
-                data = '{node: ^{width}}'.format(node=node, width=width)
+                data = '{node: ^{width}}'.format(node=level_nodes[j], width=width)
                 if ((j + 1) % self.d == 0 or (len(level_nodes) <= self.d and level < len(result) - 1)) and j + 1 != len(
                         level_nodes):
                     print(data, end="||")
@@ -169,4 +157,19 @@ class DHeap(list):
 
             width = math.ceil(width / self.d)
             print()
+        print()  # Buffer space
+
+    def print_as_list(self):
+        """
+        Print a listing representing the nodes on each level of the heap to the console.
+        """
+        result = self.to_list()
+        for level_num in range(0, len(result)):
+            current_level_nodes = result[level_num]
+            num_tuples = len(current_level_nodes) // self.d
+            node_tuples = [tuple(current_level_nodes[i * self.d: (i + 1) * self.d]) for i in range(num_tuples)]
+            if len(current_level_nodes) % self.d != 0:
+                node_tuples.append(tuple(current_level_nodes[num_tuples * self.d:]))
+
+            print("- Level {}: {}".format(level_num, node_tuples))
         print()  # Buffer space
