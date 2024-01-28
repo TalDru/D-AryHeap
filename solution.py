@@ -129,27 +129,17 @@ def extract(heap: DHeap, index_to_remove: int) -> int:
 #     print(example_heap, "\tIncreased node #{} to {}:".format(increased_index, increased_value))
 #     example_heap.print_as_tree()
 
-# TODO S - User interface -
-#           * get D from user (single d for each run)
-#           * get heap input from file
-#           * allow user to apply all implemented functions or exit, i.e:
-#               *  print current state of heap
-#               *  ask user which function he would like to run (or exit)
-#               *  get function input
-#               *  print function output (if any)
-#               *  GOTO 1
-#           * NOTE: the user can ask to build a new heap from file in the middle of the run
-# TODO S+T - analyze runtime complexity of each public function
-# TODO S - implement "simple print" (layer 0 - ..., layer 1 - ..., etc) for larger trees
-
 
 # TODO new-
 #  * Check input and throw exceptions on invalid input
 #       * Input can be only ints (up to 5k values),
 #           positive or *negative*, and can be expected
 #           to be between -99999 and 99999
-#  * T - Add "Testing" module - i.e. something that gets different inputs and
+#  * S - Add "Testing" module - i.e. something that gets different inputs and
 #       checks if expected output was calculated for each public function
 #       also - we have to check for edge cases and raise exceptions in case of an error
+#  * S - Run the some of the more important actions manually using the user interface,
+#        copy the entire console into the document
 #  * Add documentation of the algorithm's basic workflow for each implementation
-#  * Validate pseudo code vs final code version
+#  * T - implement "simple print" (layer 0 - ..., layer 1 - ..., etc) for larger trees
+#  * S - Validate pseudo code vs final code version
