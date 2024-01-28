@@ -19,9 +19,7 @@ def extract_max(heap: DHeap):
         # The only node is the root
         return heap.pop_last()
     max_index = 0  # Assuming heap is a max heap
-    heap.swap(max_index, heap.heap_size - 1)  # Now max node is at heap[heap.heap_size - 1]
-    popped_node = heap.pop_last()
-    GeneralAlgorithms.max_heapify(heap, 0)  # Fix Heap from root
+    popped_node = extract(heap, max_index)
     return popped_node
 
 
@@ -49,7 +47,7 @@ def increase_key(heap: DHeap, index_to_increase: int, new_value: int):
     """
     if heap.heap_size < index_to_increase:
         raise Exception("Heap overflow.")
-    if index_to_increase < 0:
+    if index_to_increase < 0 or heap.heap_size < 1:
         raise Exception("Heap underflow.")
     if heap[index_to_increase] > new_value:
         return  # New key is smaller than current key
@@ -78,7 +76,6 @@ def extract(heap: DHeap, index_to_remove: int) -> int:
         raise Exception("Heap underflow.")
     heap.swap(index_to_remove, heap.heap_size - 1)  # Now the node to extract is at heap[heap.heap_size - 1]
     popped_node = heap.pop_last()
-    # GeneralAlgorithms.build_max_heap(heap)  # Fix Heap
     GeneralAlgorithms.max_heapify(heap, index_to_remove)  # Fix Heap
     return popped_node
 
