@@ -128,15 +128,17 @@ def extract(heap: DHeap, index_to_remove: int) -> int:
 
 
 # TODO new-
-#  * Check input and throw exceptions on invalid input
-#       * Input can be only ints (up to 5k values),
-#           positive or *negative*, and can be expected
-#           to be between -99999 and 99999
 #  * S - Add "Testing" module - i.e. something that gets different inputs and
 #       checks if expected output was calculated for each public function
 #       also - we have to check for edge cases and raise exceptions in case of an error
+#  * S - While testing - check input and throw exceptions on invalid input
+#       * Input can be only ints (up to 5k values),
+#           positive or *negative*, and can be expected
+#           to be between -99999 and 99999
 #  * S - Run the some of the more important actions manually using the user interface,
 #        copy the entire console into the document
-#  * Add documentation of the algorithm's basic workflow for each implementation
+#  * T - Add documentation of the algorithm's basic workflow for each implementation in the docstring
+#  * T - Add more robust commenting, as it was explained in the guide
 #  * T - implement "simple print" (layer 0 - ..., layer 1 - ..., etc) for larger trees
 #  * S - Validate pseudo code vs final code version
+#  * S - Reorganize all the functions to be "top down" dependency-wise, as it was explained in the guide
