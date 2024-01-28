@@ -64,7 +64,7 @@ def increase_key(heap: DHeap, index_to_increase: int, new_value: int):
                 break
 
 
-def extract(heap: DHeap, index_to_remove: int):
+def extract(heap: DHeap, index_to_remove: int) -> int:
     """
     Extract requested node from heap (assuming heap is a Maximum heap), fix the heap and return the extracted value.
 
@@ -83,56 +83,51 @@ def extract(heap: DHeap, index_to_remove: int):
     return popped_node
 
 
-def main():
-    example_array = [3, 9, 2, 11, 14, 5, 7, 15, 6, 10, 20, 12, 1, 17, 4, 13, 16]
-    # example_array = [3]
-    example_heap_level_size = 2
-    example_heap = DHeap(items=example_array, d=example_heap_level_size)
-    print("Height: ", example_heap.height)
-
-    print("Before max_heapify: ")
-    print(example_heap)
-    example_heap.print_as_tree()
-
-    GeneralAlgorithms.build_max_heap(example_heap)
-    print("After max_heapify: ")
-    print(example_heap)
-    example_heap.print_as_tree()
-
-    print("After extract_max: ")
-    max_node = extract_max(example_heap)
-    print(example_heap, "\tMax node value:", max_node)
-    example_heap.print_as_tree()
-
-    print("After insert: ")
-    inserted_value = 9
-    insert(example_heap, inserted_value)
-    print(example_heap, "\tInserted node {}".format(inserted_value))
-    example_heap.print_as_tree()
-
-    print("After pop: ")
-    popped_index = 1
-    popped_node = extract(example_heap, popped_index)
-    print(example_heap, "\tPopped node #{}: {}".format(popped_index, popped_node))
-    example_heap.print_as_tree()
-
-    print("After insert: ")
-    inserted_value = 8
-    insert(example_heap, inserted_value)
-    print(example_heap, "\tInserted node {}".format(inserted_value))
-    example_heap.print_as_tree()
-
-    print("After increase: ")
-    increased_index = example_heap.heap_size - 1
-    increased_value = 16
-    increase_key(example_heap, increased_index, increased_value)
-    print(example_heap, "\tIncreased node #{} to {}:".format(increased_index, increased_value))
-    example_heap.print_as_tree()
-
-
-
-if __name__ == '__main__':
-    main()
+# def main():
+#     example_array = [3, 9, 2, 11, 14, 5, 7, 15, 6, 10, 20, 12, 1, 17, 4, 13, 16]
+#     # example_array = [3]
+#     example_heap_level_size = 2
+#     example_heap = DHeap(items=example_array, d=example_heap_level_size)
+#     print("Height: ", example_heap.height)
+#
+#     print("Before max_heapify: ")
+#     print(example_heap)
+#     example_heap.print_as_tree()
+#
+#     GeneralAlgorithms.build_max_heap(example_heap)
+#     print("After max_heapify: ")
+#     print(example_heap)
+#     example_heap.print_as_tree()
+#
+#     print("After extract_max: ")
+#     max_node = extract_max(example_heap)
+#     print(example_heap, "\tMax node value:", max_node)
+#     example_heap.print_as_tree()
+#
+#     print("After insert: ")
+#     inserted_value = 9
+#     insert(example_heap, inserted_value)
+#     print(example_heap, "\tInserted node {}".format(inserted_value))
+#     example_heap.print_as_tree()
+#
+#     print("After pop: ")
+#     popped_index = 1
+#     popped_node = extract(example_heap, popped_index)
+#     print(example_heap, "\tPopped node #{}: {}".format(popped_index, popped_node))
+#     example_heap.print_as_tree()
+#
+#     print("After insert: ")
+#     inserted_value = 8
+#     insert(example_heap, inserted_value)
+#     print(example_heap, "\tInserted node {}".format(inserted_value))
+#     example_heap.print_as_tree()
+#
+#     print("After increase: ")
+#     increased_index = example_heap.heap_size - 1
+#     increased_value = 16
+#     increase_key(example_heap, increased_index, increased_value)
+#     print(example_heap, "\tIncreased node #{} to {}:".format(increased_index, increased_value))
+#     example_heap.print_as_tree()
 
 # TODO S - User interface -
 #           * get D from user (single d for each run)
@@ -146,7 +141,6 @@ if __name__ == '__main__':
 #           * NOTE: the user can ask to build a new heap from file in the middle of the run
 # TODO S+T - analyze runtime complexity of each public function
 # TODO S - implement "simple print" (layer 0 - ..., layer 1 - ..., etc) for larger trees
-# TODO - adjust insert
 
 
 # TODO new-
