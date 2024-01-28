@@ -82,7 +82,7 @@ class DHeap(list):
         @param root_index: The index to find the parent of.
         @return: The parent index of the given root index.
         """
-        return int(math.floor(root_index / self.d))
+        return int(math.floor((root_index - 1) / self.d))
 
     def nth_child_index(self, root_index, n):
         """
