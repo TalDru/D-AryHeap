@@ -33,9 +33,19 @@ def insert(heap: DHeap, value: int) -> int:
     @param value: value to insert into the heap.
     @return: Inserted node index.
     """
-    # TODO fix: if we pop something beforehand - appending would insert it after popped values
-    heap.append(value)  # Add value to the end of the list and increase heap_size
-    GeneralAlgorithms.build_max_heap(heap)  # Fix Heap from root
+    # Append None temporarily to the end of the heap and increase heap_size by one
+    heap.heap_size += 1
+    if heap.heap_size < heap.array_length:
+        heap[heap.heap_size - 1] = None
+    else:
+        heap.append(None)
+
+    # Move all heap one index to the right and insert value as the first one
+    for i in range(1, heap.heap_size - 1):
+        heap[-i] = heap[-i -1]
+    heap[0] = value
+
+    GeneralAlgorithms.max_heapify(heap, 0)  # Fix Heap
 
     # Find index of inserted value and return it
     index = 0
@@ -134,6 +144,12 @@ def main():
     increased_value = 16
     increase_key(example_heap, increased_index, increased_value)
     print(example_heap, "\tIncreased node #{} to {}:".format(increased_index, increased_value))
+    example_heap.print_as_tree()
+
+    print("After insert: ")
+    inserted_value = 7
+    inserted_index = insert(example_heap, inserted_value)
+    print(example_heap, "\tInserted node at index {}: {}".format(inserted_index, inserted_value))
     example_heap.print_as_tree()
 
 

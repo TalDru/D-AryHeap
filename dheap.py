@@ -29,12 +29,17 @@ class DHeap(list):
             self.heap_size += 1
             self.append(item)
 
-        self.array_length = self.heap_size
-
         self.d = d
 
     def __len__(self):
         return self.heap_size
+
+    @property
+    def array_length(self):
+        l = 0
+        for i in self:
+            l += 1
+        return l
 
     def append(self, value):
         list.append(self, value)
