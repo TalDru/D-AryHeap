@@ -5,24 +5,32 @@ from common import GeneralAlgorithms
 DEFAULT_INPUT_FILE = 'input.txt'
 
 
+def safe_input_int(prompt: str):
+    while True:
+        try:
+            return int(input(prompt))
+        except ValueError:
+            print("!!! Input has to be a number. Please try again.")
+
+
 def do_extract_max(heap: DHeap):
     result = extract_max(heap)
     print("\tExtracted max node with value {} from heap.".format(result))
 
 
 def do_insert(heap: DHeap):
-    value = int(input("Input value to insert: "))
+    value = safe_input_int("\t>Input value to insert: ")
     insert(heap, value)
 
 
 def do_increase_key(heap: DHeap):
-    index_to_increase = int(input("Input index to increase: "))
-    value = int(input("Input value: "))
+    index_to_increase = safe_input_int("\t>Input index to increase: ")
+    value = safe_input_int("Input value: ")
     increase_key(heap, index_to_increase, value)
 
 
 def do_extract(heap: DHeap):
-    index_to_remove = int(input("Input index to remove: "))
+    index_to_remove = safe_input_int("\t>Input index to remove: ")
     removed_node = extract(heap, index_to_remove)
     print("\tExtracted node #{}: {}.".format(index_to_remove, removed_node))
 
@@ -76,11 +84,12 @@ def user_loop():
     GeneralAlgorithms.build_max_heap(heap)
 
     while True:
+        heap.print_as_tree()
         print_menu()
         menu_option = get_menu_option_from_user()
         if menu_option == EXIT_KEY:
+            print("Exiting...")
             break
 
         action = ACTIONS[menu_option][1]
         action(heap)
-        heap.print_as_tree()
