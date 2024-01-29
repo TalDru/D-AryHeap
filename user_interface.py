@@ -26,7 +26,7 @@ def do_insert(heap: DHeap):
 
 def do_increase_key(heap: DHeap):
     index_to_increase = safe_input_int("\t>Input index to increase: ")
-    value = safe_input_int("Input value: ")
+    value = safe_input_int("\t>Input value: ")
     increase_key(heap, index_to_increase, value)
 
 
@@ -36,12 +36,14 @@ def do_extract(heap: DHeap):
     print("\tExtracted node #{}: {}.".format(index_to_remove, removed_node))
 
 
-EXIT_KEY = "5"
+RELOAD_HEAP_KEY = "5"
+EXIT_KEY = "6"
 ACTIONS = {
     "1": ("Extract maximum value", do_extract_max),
     "2": ("Insert value", do_insert),
     "3": ("Increase key", do_increase_key),
     "4": ("Remove key", do_extract),
+    RELOAD_HEAP_KEY: ("Load different heap", None),
     EXIT_KEY: ("Exit", None)
 }
 
@@ -62,6 +64,19 @@ def get_list_from_file(file_name: str) -> list:
     return input_list
 
 
+def load_heap():
+    d = get_d_from_user()
+    filename = get_file_name_from_user()
+    print(f"Reading heap from path {filename}...")
+    input_list = get_list_from_file(filename)
+    print(f"Got list (size {len(input_list)}): {input_list}")
+    heap = DHeap(input_list, d)
+    print("Converting into Max Heap...")
+    GeneralAlgorithms.build_max_heap(heap)
+    print("Heap is ready!\n--------------\n")
+    return heap
+
+
 def print_menu():
     print("Possible actions on heap:")
     for key, menu_item in ACTIONS.items():
@@ -79,29 +94,22 @@ def get_menu_option_from_user() -> str:
 
 
 def user_loop():
-    d = get_d_from_user()
-    filename = get_file_name_from_user()
-    print(f"Reading heap from path {filename}...")
-    input_list = get_list_from_file(filename)
-    print(f"Got list (size {len(input_list)}): {input_list}")
-    heap = DHeap(input_list, d)
-    print("Converting into Max Heap...")
-    GeneralAlgorithms.build_max_heap(heap)
-    print("Heap is ready!\n--------------\n")
-
-    if len(input_list) > MAX_TREE_DISPLAY_ITEMS:
-        print("Heap is too big to print as a tree, Heap will be displayed as list.")
+    heap = load_heap()
 
     while True:
         if heap.heap_size > MAX_TREE_DISPLAY_ITEMS:
+            print("Heap is too big to print as a tree, Heap will be displayed as list.")
             heap.print_as_list()
         else:
             heap.print_as_tree()
+
         print_menu()
         menu_option = get_menu_option_from_user()
         if menu_option == EXIT_KEY:
             print("Exiting...")
             break
-
-        action = ACTIONS[menu_option][1]
-        action(heap)
+        elif menu_option == RELOAD_HEAP_KEY:
+            heap = load_heap()
+        else:
+            action = ACTIONS[menu_option][1]
+            action(heap)
