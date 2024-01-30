@@ -80,65 +80,9 @@ def extract(heap: DHeap, index_to_remove: int) -> int:
     return popped_node
 
 
-# def main():
-#     example_array = [3, 9, 2, 11, 14, 5, 7, 15, 6, 10, 20, 12, 1, 17, 4, 13, 16]
-#     # example_array = [3]
-#     example_heap_level_size = 2
-#     example_heap = DHeap(items=example_array, d=example_heap_level_size)
-#     print("Height: ", example_heap.height)
-#
-#     print("Before max_heapify: ")
-#     print(example_heap)
-#     example_heap.print_as_tree()
-#
-#     GeneralAlgorithms.build_max_heap(example_heap)
-#     print("After max_heapify: ")
-#     print(example_heap)
-#     example_heap.print_as_tree()
-#
-#     print("After extract_max: ")
-#     max_node = extract_max(example_heap)
-#     print(example_heap, "\tMax node value:", max_node)
-#     example_heap.print_as_tree()
-#
-#     print("After insert: ")
-#     inserted_value = 9
-#     insert(example_heap, inserted_value)
-#     print(example_heap, "\tInserted node {}".format(inserted_value))
-#     example_heap.print_as_tree()
-#
-#     print("After pop: ")
-#     popped_index = 1
-#     popped_node = extract(example_heap, popped_index)
-#     print(example_heap, "\tPopped node #{}: {}".format(popped_index, popped_node))
-#     example_heap.print_as_tree()
-#
-#     print("After insert: ")
-#     inserted_value = 8
-#     insert(example_heap, inserted_value)
-#     print(example_heap, "\tInserted node {}".format(inserted_value))
-#     example_heap.print_as_tree()
-#
-#     print("After increase: ")
-#     increased_index = example_heap.heap_size - 1
-#     increased_value = 16
-#     increase_key(example_heap, increased_index, increased_value)
-#     print(example_heap, "\tIncreased node #{} to {}:".format(increased_index, increased_value))
-#     example_heap.print_as_tree()
-
-
 # TODO new-
-#  * S - Add "Testing" module - i.e. something that gets different inputs and
-#       checks if expected output was calculated for each public function
-#       also - we have to check for edge cases and raise exceptions in case of an error
-#  * S - While testing - check input and throw exceptions on invalid input
-#       * Input can be only ints (up to 5k values),
-#           positive or *negative*, and can be expected
-#           to be between -99999 and 99999
-#  * S - Run the some of the more important actions manually using the user interface,
-#        copy the entire console into the document
 #  * T - Add documentation of the algorithm's basic workflow for each implementation in the docstring
 #  * T - Add more robust commenting, as it was explained in the guide
-#  * S+T - Go over inline TODOs
 #  * S - Validate pseudo code vs final code version
 #  * S - Reorganize all the functions to be "top down" dependency-wise, as it was explained in the guide
+#  * S+T - Go over inline TODOs
