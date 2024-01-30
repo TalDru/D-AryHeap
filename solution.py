@@ -1,5 +1,6 @@
 """
-D-ary Heap implementation.
+Implementation of the D-ary Heap algorithms for the assignment.
+
 @author: Tal Druzhinin & Shelly Goltzman
 """
 from common import GeneralAlgorithms
@@ -14,13 +15,21 @@ def extract(heap: DHeap, index_to_remove: int) -> int:
     @param index_to_remove: Requested index to extract from the heap.
     @return: Removed node value.
     """
+    # Check for edge cases
     if heap.heap_size < index_to_remove:
         raise Exception("Heap overflow.")
     if index_to_remove < 0 or heap.heap_size < 1:
         raise Exception("Heap underflow.")
-    heap.swap(index_to_remove, heap.heap_size - 1)  # Now the node to extract is at heap[heap.heap_size - 1]
+
+    # Swap the node to remove with the last node
+    heap.swap(index_to_remove, heap.heap_size - 1)
+
+    # Pop the last node (the node to remove)
     popped_node = heap.pop_last()
-    GeneralAlgorithms.max_heapify(heap, index_to_remove)  # Fix Heap
+
+    # Fix Heap
+    GeneralAlgorithms.max_heapify(heap, index_to_remove)
+
     return popped_node
 
 

@@ -26,12 +26,12 @@ class DHeap(list):
         if len(items) < 1:
             raise Exception("Heap was initiated with an invalid list of values!")
 
+        # Populate heap object
+        self.d = d
         self.heap_size = 0
         for item in items:
             self.heap_size += 1
             self.append(item)
-
-        self.d = d
 
     def __setitem__(self, key, value):
         list.__setitem__(self, key, value)
@@ -39,12 +39,17 @@ class DHeap(list):
     # Properties
 
     @property
-    def height(self):
+    def height(self) -> int:
+        """
+        Calculate the height of the current heap.
+
+        @return: The height of the heap.
+        """
         return int(math.floor(math.log(self.heap_size, self.d))) + 1 if self.heap_size > 0 else 0
 
     # Class functionality
 
-    def swap(self, i, j):
+    def swap(self, i: int, j: int):
         """
         Swap values of the node in index i with the value of the node index j.
 
@@ -53,7 +58,12 @@ class DHeap(list):
         """
         self[i], self[j] = self[j], self[i]
 
-    def pop_last(self):
+    def pop_last(self) -> int:
+        """
+        Pop the last node of the heap by decreasing the heap_size counter.
+
+        @return: The popped node's value
+        """
         last_index = self.heap_size - 1
         popped_node = self[last_index]
         self.heap_size -= 1
@@ -61,7 +71,7 @@ class DHeap(list):
 
     # Class calculations
 
-    def get_parent_index(self, root_index):
+    def get_parent_index(self, root_index: int) -> int:
         """
         Calculate the theoretical index of the parent of a given index.
         @note: This is a mathematical calculation that does not validate the heap boundaries.
@@ -72,7 +82,7 @@ class DHeap(list):
         """
         return int(math.floor((root_index - 1) / self.d))
 
-    def nth_child_index(self, root_index, n):
+    def nth_child_index(self, root_index: int, n: int) -> int:
         """
         Calculate the theoretical index of the n-th child of a given index.
         @note: This is a mathematical calculation that does not validate the heap boundaries.
@@ -83,7 +93,7 @@ class DHeap(list):
         """
         return (self.d * root_index) + n
 
-    def get_children_indexes(self, root_index):
+    def get_children_indexes(self, root_index: int) -> list[int]:
         """
         Calculate the theoretical indexes of all the child of a given index.
         @note: This is a mathematical calculation that does not validate the heap boundaries.

@@ -1,3 +1,8 @@
+"""
+Main module for the assignment "D-ary Heap".
+
+@author: Tal Druzhinin & Shelly Goltzman
+"""
 from user_interface import user_loop
 
 

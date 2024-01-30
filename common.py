@@ -1,7 +1,6 @@
 """
 This file contains all the functions and algorithms
-that are needed for the implementation of the main assignment,
-in addition to some auxiliary functions.
+that are needed for the implementation of the main assignment.
 
 @author: Tal Druzhinin & Shelly Goltzman
 """
