@@ -10,6 +10,17 @@ from solution import extract_max, extract, insert, increase_key
 
 DEFAULT_INPUT_FILE = 'input.txt'
 MAX_TREE_DISPLAY_ITEMS = 32
+BANNER = """
+ ___                                  _   _                      
+(  _`\                               ( ) ( )                     
+| | ) | ______   _ _  _ __  _   _    | |_| |   __     _ _  _ _   
+| | | )(______)/'_` )( '__)( ) ( )   |  _  | /'__`\ /'_` )( '_`\ 
+| |_) |       ( (_| || |   | (_) |   | | | |(  ___/( (_| || (_) )
+(____/'       `\__,_)(_)   `\__, |   (_) (_)`\____)`\__,_)| ,__/'
+                           ( )_| |                        | |    
+                           `\___/'                        (_)    
+            --- By Tal Druzhinin & Shelly Goltsman ---
+"""
 
 
 def safe_input_int(prompt: str) -> int:
@@ -150,6 +161,7 @@ def user_loop():
     Main loop of the user interface. Will create the heap with user input, and allow the user to
     make actions on the heap until the user chooses to exit.
     """
+    print(BANNER)
     heap = load_heap()
 
     while True:
