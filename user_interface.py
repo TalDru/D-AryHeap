@@ -183,4 +183,4 @@ def user_loop():
                 action = ACTIONS[menu_option][1]
                 action(heap)
         except Exception as e:
-            print("Illegal action. Please try again. Error Message: {}".format(e))
+            print("!!!\nIllegal action. Please try again. \nError Message: {}\n!!!".format(e))
