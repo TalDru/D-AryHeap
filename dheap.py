@@ -103,9 +103,6 @@ class DHeap(list):
 
     # Visualizations
 
-    def __str__(self):
-        return str(self.to_list())
-
     def to_list(self):
         """
         Generate a nested list representing the nodes on each level of the heap.
@@ -129,6 +126,9 @@ class DHeap(list):
             result.append(level_nodes)
             current_level = next_level
         return result
+
+    def __str__(self):
+        return str(self.to_list())
 
     def print_as_tree(self):
         """
