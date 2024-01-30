@@ -1,7 +1,8 @@
 import pytest
+
+from common import GeneralAlgorithms
 from dheap import DHeap
 from solution import extract_max, extract, increase_key, insert
-from common import GeneralAlgorithms
 
 
 def make_heap(items, d, maximize=True, heap_size=None):
@@ -84,10 +85,10 @@ def test_extract(heap: DHeap, expected_heap: DHeap, remove_index: int, expected_
                 make_heap([4, 3, 3, 1, 2], 2, maximize=False),
                 3,
         ),
-(
-        make_heap([1, 2, 3, 4], 2),
-        make_heap([4, 2, 3, 1, 1], 2, maximize=False),
-        1,
+        (
+                make_heap([1, 2, 3, 4], 2),
+                make_heap([4, 2, 3, 1, 1], 2, maximize=False),
+                1,
         ),
     ]
 )
@@ -133,55 +134,55 @@ def test_increase_key(heap: DHeap, expected_heap: DHeap, increase_index: int, in
     "heap,actions,kwargs,expected_results,expected_heaps",
     [
         (
-            make_heap([3, 9, 2, 11, 14, 5, 7, 15, -200, 6, 10, 20, 12, 1, -17, 4, 14, 16], 4),
-            [extract_max, insert, extract, insert, increase_key, increase_key],
-            [
-                {},
-                {"value": 0},
-                {"index_to_remove": 1},
-                {"value": 2},
-                {"index_to_increase": 3, "new_value": 15},
-                {"index_to_increase": 0, "new_value": 10}
-            ],
-            [20, None, 15, None, None, None],
-            [
-                make_heap(
-                    [16, 15, 12, 14, 14, 5, 7, 9, -200, 6, 10, 2, 3, 1, -17, 4, 11, 20],
-                    4,
-                    maximize=False,
-                    heap_size=17
-                ),
-                make_heap(
-                    [16, 15, 12, 14, 14, 5, 7, 9, -200, 6, 10, 2, 3, 1, -17, 4, 11, 0, 20],
-                    4,
-                    maximize=False,
-                    heap_size=18
-                ),
-                make_heap(
-                    [16, 9, 12, 14, 14, 5, 7, 0, -200, 6, 10, 2, 3, 1, -17, 4, 11, 15, 20],
-                    4,
-                    maximize=False,
-                    heap_size=17
-                ),
-                make_heap(
-                    [16, 9, 12, 14, 14, 5, 7, 0, -200, 6, 10, 2, 3, 1, -17, 4, 11, 2, 15, 20],
-                    4,
-                    maximize=False,
-                    heap_size=18
-                ),
-                make_heap(
-                    [16, 9, 12, 15, 14, 5, 7, 0, -200, 6, 10, 2, 3, 1, -17, 4, 11, 2, 15, 20],
-                    4,
-                    maximize=False,
-                    heap_size=18
-                ),
-                make_heap(
-                    [16, 9, 12, 15, 14, 5, 7, 0, -200, 6, 10, 2, 3, 1, -17, 4, 11, 2, 15, 20],
-                    4,
-                    maximize=False,
-                    heap_size=18
-                ),
-            ]
+                make_heap([3, 9, 2, 11, 14, 5, 7, 15, -200, 6, 10, 20, 12, 1, -17, 4, 14, 16], 4),
+                [extract_max, insert, extract, insert, increase_key, increase_key],
+                [
+                    {},
+                    {"value": 0},
+                    {"index_to_remove": 1},
+                    {"value": 2},
+                    {"index_to_increase": 3, "new_value": 15},
+                    {"index_to_increase": 0, "new_value": 10}
+                ],
+                [20, None, 15, None, None, None],
+                [
+                    make_heap(
+                        [16, 15, 12, 14, 14, 5, 7, 9, -200, 6, 10, 2, 3, 1, -17, 4, 11, 20],
+                        4,
+                        maximize=False,
+                        heap_size=17
+                    ),
+                    make_heap(
+                        [16, 15, 12, 14, 14, 5, 7, 9, -200, 6, 10, 2, 3, 1, -17, 4, 11, 0, 20],
+                        4,
+                        maximize=False,
+                        heap_size=18
+                    ),
+                    make_heap(
+                        [16, 9, 12, 14, 14, 5, 7, 0, -200, 6, 10, 2, 3, 1, -17, 4, 11, 15, 20],
+                        4,
+                        maximize=False,
+                        heap_size=17
+                    ),
+                    make_heap(
+                        [16, 9, 12, 14, 14, 5, 7, 0, -200, 6, 10, 2, 3, 1, -17, 4, 11, 2, 15, 20],
+                        4,
+                        maximize=False,
+                        heap_size=18
+                    ),
+                    make_heap(
+                        [16, 9, 12, 15, 14, 5, 7, 0, -200, 6, 10, 2, 3, 1, -17, 4, 11, 2, 15, 20],
+                        4,
+                        maximize=False,
+                        heap_size=18
+                    ),
+                    make_heap(
+                        [16, 9, 12, 15, 14, 5, 7, 0, -200, 6, 10, 2, 3, 1, -17, 4, 11, 2, 15, 20],
+                        4,
+                        maximize=False,
+                        heap_size=18
+                    ),
+                ]
         ),
     ]
 )
@@ -194,5 +195,3 @@ def test_sequence(heap: DHeap, actions: list, kwargs: list, expected_results: li
         assert result == expected_results[i]
         assert heap == expected_heaps[i]
         assert heap.heap_size == expected_heaps[i].heap_size
-
-
