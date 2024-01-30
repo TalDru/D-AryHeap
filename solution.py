@@ -6,7 +6,7 @@ from common import GeneralAlgorithms
 from dheap import DHeap
 
 
-def extract_max(heap: DHeap):
+def extract_max(heap: DHeap) -> int:
     """
     Extract max node assuming heap is a max heap (and therefore the maximum value is at index 0).
 
