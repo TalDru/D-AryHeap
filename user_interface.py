@@ -12,7 +12,13 @@ DEFAULT_INPUT_FILE = 'input.txt'
 MAX_TREE_DISPLAY_ITEMS = 32
 
 
-def safe_input_int(prompt: str):
+def safe_input_int(prompt: str) -> int:
+    """
+    Get an integer input from user and make sure it's an integer.
+    If it's an invalid input, keep asking for a valid one.
+    :param prompt: prompt with which to ask for input.
+    :return: integer input from user.
+    """
     while True:
         try:
             return int(input(prompt))
@@ -21,22 +27,38 @@ def safe_input_int(prompt: str):
 
 
 def do_extract_max(heap: DHeap):
+    """
+    Perform the extract_max function and print its output.
+    :param heap: heap on which to perform the function.
+    """
     result = extract_max(heap)
     print("\tExtracted max node with value {} from heap.".format(result))
 
 
 def do_insert(heap: DHeap):
+    """
+    Get input for the insert function, and perform it.
+    :param heap: heap on which to perform the function.
+    """
     value = safe_input_int("\t>Input value to insert: ")
     insert(heap, value)
 
 
 def do_increase_key(heap: DHeap):
+    """
+    Get input for the increase_key function, and perform it.
+    :param heap: heap on which to perform the function.
+    """
     index_to_increase = safe_input_int("\t>Input index to increase: ")
     value = safe_input_int("\t>Input value: ")
     increase_key(heap, index_to_increase, value)
 
 
 def do_extract(heap: DHeap):
+    """
+    Get input for the extract function, perform it and print its output.
+    :param heap: heap on which to perform the function.
+    """
     index_to_remove = safe_input_int("\t>Input index to remove: ")
     removed_node = extract(heap, index_to_remove)
     print("\tExtracted node #{}: {}.".format(index_to_remove, removed_node))
@@ -55,14 +77,27 @@ ACTIONS = {
 
 
 def get_d_from_user() -> int:
-    return int(input("> Insert D for d-heap:"))
+    """
+    Get the d for the d-heap from user.
+    :return: the d value as a valid integer.
+    """
+    return safe_input_int("> Insert D for d-heap:")
 
 
 def get_file_name_from_user() -> str:
+    """
+    Get the name of file from which to read the heap contents from user.
+    :return: Name of the file.
+    """
     return input(f"> Input path to file with heap list (default={DEFAULT_INPUT_FILE}): ") or DEFAULT_INPUT_FILE
 
 
 def get_list_from_file(file_name: str) -> list:
+    """
+    Get a list of integers to make a heap from given file.
+    :param file_name: file from which to read.
+    :return: list of integers.
+    """
     with open(file_name, 'r') as f:
         content = f.read()
 
@@ -70,7 +105,11 @@ def get_list_from_file(file_name: str) -> list:
     return input_list
 
 
-def load_heap():
+def load_heap() -> DHeap:
+    """
+    Get input necessary to amke a heap from user (d, file with list) and make a max heap.
+    :return: Created max heap object.
+    """
     d = get_d_from_user()
     filename = get_file_name_from_user()
     print(f"Reading heap from path {filename}...")
@@ -84,12 +123,19 @@ def load_heap():
 
 
 def print_menu():
+    """
+    Print menu with possible actions to perform on the heap for user.
+    """
     print("Possible actions on heap:")
     for key, menu_item in ACTIONS.items():
         print(f"\t{key}. {menu_item[0]}")
 
 
 def get_menu_option_from_user() -> str:
+    """
+    Get a valid menu option from user.
+    :return: valid menu option.
+    """
     # The input loop will run until we get a valid input option
     while True:
         result = input("> Enter action: ")
@@ -100,6 +146,10 @@ def get_menu_option_from_user() -> str:
 
 
 def user_loop():
+    """
+    Main loop of the user interface. Will create the heap with user input, and allow the user to
+    make actions on the heap until the user chooses to exit.
+    """
     heap = load_heap()
 
     while True:
@@ -111,11 +161,14 @@ def user_loop():
 
         print_menu()
         menu_option = get_menu_option_from_user()
-        if menu_option == EXIT_KEY:
-            print("Exiting...")
-            break
-        elif menu_option == RELOAD_HEAP_KEY:
-            heap = load_heap()
-        else:
-            action = ACTIONS[menu_option][1]
-            action(heap)
+        try:
+            if menu_option == EXIT_KEY:
+                print("Exiting...")
+                break
+            elif menu_option == RELOAD_HEAP_KEY:
+                heap = load_heap()
+            else:
+                action = ACTIONS[menu_option][1]
+                action(heap)
+        except Exception as e:
+            print("Illegal action. Please try again. Error Message: {}".format(e))
